@@ -1,9 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Container, Form, Row, Button } from "react-bootstrap";
 import "./styles.css";
 import "../../styles/styles.css";
+import { useMutation } from "@apollo/client";
+import { GENERATE_CUSTOM_TOKEN } from "../../gql-operations/mutations/generateCustomerToken";
 
 const SignIn = () => {
+  const [signInState, setSignInState] = useState({
+    email: "",
+    password: "",
+  });
+  const [generateCustomerToken] = useMutation(GENERATE_CUSTOM_TOKEN);
+
+  const onChangeValues = (e) => {
+    setSignInState((prev) => {
+      return { ...prev, [e.target.id]: e.target.value };
+    });
+  };
+
+  const onClickSignIn = (e) => {
+    console.log("called", signInState);
+    e.preventDefault();
+    generateCustomerToken({
+      variables: signInState,
+    })
+      .then((res) => {
+        console.log("res==", res);
+      })
+      .catch((err) => {
+        console.log("err==", err);
+      });
+  };
+
   return (
     <div className="component-container">
       <Container fluid>
@@ -17,7 +45,11 @@ const SignIn = () => {
             <Form>
               <Form.Group controlId="email">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  onChange={(e) => onChangeValues(e)}
+                />
               </Form.Group>
               <Form.Group controlId="password">
                 <Form.Label>Password</Form.Label>
@@ -25,9 +57,14 @@ const SignIn = () => {
                   className="mb-4"
                   type="password"
                   placeholder="Password"
+                  onChange={(e) => onChangeValues(e)}
                 />
               </Form.Group>
-              <Button className="w-100 p-2 button" color="secondary">
+              <Button
+                onClick={(e) => onClickSignIn(e)}
+                className="w-100 p-2 button"
+                color="secondary"
+              >
                 Sign In
               </Button>
             </Form>
