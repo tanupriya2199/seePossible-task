@@ -1,0 +1,36 @@
+
+.footer-container{
+    height: 4rem;
+    font-size: 0.85rem;
+    background-color: #E5E5E5;
+    font-weight: 600;
+}
+
+.header-container{
+    height: 4rem;
+    font-size: 0.85rem;
+    background-color: #E5E5E5;
+    font-weight: 600;
+}
+
+.connection-status-container p{
+    background-color: #cfcdcd;
+}
+
+.connection-status-container span{
+    background-color: #c3c2c2;
+}
+
+.action-buttons span{
+   font-size: 0.85rem;
+    color: #000;
+}
+
+.action-buttons a:hover{
+    text-decoration: none;
+}
+
+.social-handles-container span{
+    cursor: pointer;
+    font-size: 1rem;
+}
