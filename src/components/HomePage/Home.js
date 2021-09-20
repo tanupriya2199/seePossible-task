@@ -1,13 +1,7 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 
 const Home = () => {
-  return (
-    <div>
-      Home Page
-      <Button variant="warning">Warning</Button>{" "}
-    </div>
-  );
+  return <div>Home Page</div>;
 };
 
 export default Home;
