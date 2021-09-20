@@ -1,0 +1,23 @@
+.component-container{
+    min-height: calc(100vh - 8rem);
+}
+
+.button{
+    background-color: black;
+    outline: none;
+    border: none;
+}
+
+.button:hover{
+    background-color: black;
+    outline: none;
+    border: none;
+}
+
+.background-grey{
+    background-color: #E5E5E5;
+}
+
+.background-grey-200{
+    background-color: #b8bbbd;
+}

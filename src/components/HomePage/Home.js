@@ -1,10 +1,10 @@
 import React from "react";
-import "./styles.css";
+import "../../styles/styles.css";
 
 const Home = () => {
   return (
     <div>
-      <div className="home-page-container"></div>
+      <div className="component-container"></div>
     </div>
   );
 };
