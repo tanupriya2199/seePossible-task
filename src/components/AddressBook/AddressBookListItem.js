@@ -1,5 +1,7 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
+import { generatePath } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { v4 as uuidv4 } from "uuid";
@@ -30,7 +32,7 @@ const AddressBookListItem = (props) => {
   return (
     <div className="item-container background-grey p-3 d-flex justify-content-between mb-3">
       <div>
-        <p>{uuidv4().slice(0, 13)}</p>
+        <p>Address Id: {address.id}</p>
         <p>
           {address.firstname} {address.lastname}
         </p>
@@ -41,13 +43,20 @@ const AddressBookListItem = (props) => {
         <p>{address.telephone}</p>
       </div>
       <div className="d-flex flex-column justify-content-between">
-        <FontAwesomeIcon
-          onClick={() => {
-            onClickEdit();
+        <Link
+          to={{
+            pathname: `/update-address/${address.id}`,
+            address: address,
           }}
-          className="cursor-pointer"
-          icon={faPencilAlt}
-        />
+        >
+          <FontAwesomeIcon
+            onClick={() => {
+              onClickEdit();
+            }}
+            className="cursor-pointer"
+            icon={faPencilAlt}
+          />
+        </Link>
         <FontAwesomeIcon
           onClick={() => {
             onClickDelete();
