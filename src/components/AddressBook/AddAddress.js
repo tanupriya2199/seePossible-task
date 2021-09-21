@@ -1,10 +1,59 @@
-import React from "react";
+import { useMutation } from "@apollo/client";
+import React, { useState } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { ADD_NEW_ADDRESS } from "../../gql-operations/mutations/addNewAddress";
 
 const AddAddress = () => {
-  const onChangeValues = (e) => {};
+  const [addressFormValue, setaddressFormValue] = useState({
+    firstname: "",
+    lastname: "",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    country: "",
+    telephone: "",
+  });
 
-  const onClickSaveAddress = () => {};
+  const [createCustomerAddress] = useMutation(ADD_NEW_ADDRESS);
+
+  const onChangeValues = (e) => {
+    setaddressFormValue((prev) => {
+      return {
+        ...prev,
+        [e.target.id]: e.target.value,
+      };
+    });
+  };
+
+  const onClickSaveAddress = () => {
+    console.log("values", addressFormValue);
+    createCustomerAddress({
+      variables: {
+        input: {
+          region: {
+            region_id: 7,
+          },
+          country_code: "US",
+          street: ["123 Main Street"],
+          telephone: "9892738263",
+          postcode: "77777",
+          city: "Phoenix",
+          firstname: "Bob",
+          lastname: "Loblaw",
+          default_shipping: true,
+          default_billing: false,
+        },
+      },
+    })
+      .then((res) => {
+        console.log("res----", res);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+
   return (
     <div className="component-container">
       <Container fluid>
@@ -18,27 +67,89 @@ const AddAddress = () => {
             <Form>
               <h5>Address Id : #87327683</h5>
               <Row>
-                <Form.Group controlId="email">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Enter email"
-                    onChange={(e) => onChangeValues(e)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="password">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    className="mb-4"
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => onChangeValues(e)}
-                  />
-                </Form.Group>
+                <Col xs={12} md={6}>
+                  <Form.Group controlId="firstname">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={addressFormValue.firstname}
+                      onChange={(e) => onChangeValues(e)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col xs={12} md={6}>
+                  <Form.Group controlId="lastname">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={addressFormValue.lastname}
+                      onChange={(e) => onChangeValues(e)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col xs={12}>
+                  <Form.Group controlId="address1">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={addressFormValue.address1}
+                      onChange={(e) => onChangeValues(e)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col xs={12}>
+                  <Form.Group controlId="address2">
+                    <Form.Control
+                      type="text"
+                      value={addressFormValue.address2}
+                      onChange={(e) => onChangeValues(e)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col xs={12} md={6}>
+                  <Form.Group controlId="city">
+                    <Form.Label>City</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={addressFormValue.city}
+                      onChange={(e) => onChangeValues(e)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col xs={12} md={6}>
+                  <Form.Group controlId="state">
+                    <Form.Label>State</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={addressFormValue.city}
+                      onChange={(e) => onChangeValues(e)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group controlId="country">
+                    <Form.Label>Country</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={addressFormValue.country}
+                      onChange={(e) => onChangeValues(e)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group controlId="telephone">
+                    <Form.Label>Telephone</Form.Label>
+                    <Form.Control
+                      type="number"
+                      value={addressFormValue.telephone}
+                      onChange={(e) => onChangeValues(e)}
+                    />
+                  </Form.Group>
+                </Col>
               </Row>
               <Button
                 onClick={(e) => onClickSaveAddress(e)}
-                className="w-100 p-2 button"
+                className="w-100 p-2 button mt-3"
                 color="secondary"
               >
                 Save Address

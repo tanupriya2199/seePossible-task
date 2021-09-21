@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -67,13 +68,15 @@ const AddressBookList = () => {
         </Row>
         <Row>
           <Col className="text-center">
-            <Button
-              onClick={(e) => onClickAddAddress(e)}
-              className=" p-2 button my-3"
-              color="secondary"
-            >
-              Add New Address
-            </Button>
+            <Link to="/add-address">
+              <Button
+                onClick={(e) => onClickAddAddress(e)}
+                className=" p-2 button my-3"
+                color="secondary"
+              >
+                Add New Address
+              </Button>
+            </Link>
           </Col>
         </Row>
       </Container>

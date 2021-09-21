@@ -5,3 +5,10 @@ input::placeholder {
     padding-left: 20px;
   }
 
+  .form-group{
+      margin-bottom: .5rem;
+  }
+
+  .form-control {
+      margin-bottom: 0;
+  }
