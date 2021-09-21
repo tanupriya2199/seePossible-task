@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { v4 as uuidv4 } from "uuid";
 
 import "../../styles/styles.css";
 
@@ -11,7 +12,7 @@ const AddressBookListItem = (props) => {
   return (
     <div className="item-container background-grey p-3 d-flex justify-content-between mb-3">
       <div>
-        <p> Address Id</p>
+        <p>{uuidv4().slice(0, 13)}</p>
         <p>
           {address.firstname} {address.lastname}
         </p>
