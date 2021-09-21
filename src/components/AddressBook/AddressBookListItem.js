@@ -1,14 +1,32 @@
 import React from "react";
+import { useMutation } from "@apollo/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { v4 as uuidv4 } from "uuid";
-
 import "../../styles/styles.css";
-
-import "../../styles/styles.css";
+import { DELETE_ADDRESS } from "../../gql-operations/mutations/deleteAddress";
 
 const AddressBookListItem = (props) => {
   const address = props.address;
+  const [deleteCustomerAddress] = useMutation(DELETE_ADDRESS);
+
+  const onClickEdit = () => {};
+
+  const onClickDelete = () => {
+    deleteCustomerAddress({
+      variables: {
+        id: address.id,
+      },
+      refetchQueries: ["customer"],
+    })
+      .then((res) => {
+        console.log("succefully deleted");
+      })
+      .catch((err) => {
+        console.log("error while deleting address", err);
+      });
+  };
+
   return (
     <div className="item-container background-grey p-3 d-flex justify-content-between mb-3">
       <div>
@@ -23,8 +41,20 @@ const AddressBookListItem = (props) => {
         <p>{address.telephone}</p>
       </div>
       <div className="d-flex flex-column justify-content-between">
-        <FontAwesomeIcon className="cursor-pointer" icon={faPencilAlt} />
-        <FontAwesomeIcon className="cursor-pointer" icon={faTrashAlt} />
+        <FontAwesomeIcon
+          onClick={() => {
+            onClickEdit();
+          }}
+          className="cursor-pointer"
+          icon={faPencilAlt}
+        />
+        <FontAwesomeIcon
+          onClick={() => {
+            onClickDelete();
+          }}
+          className="cursor-pointer"
+          icon={faTrashAlt}
+        />
       </div>
     </div>
   );

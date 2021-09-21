@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +11,9 @@ import "./styles.css";
 import AddressBookListItem from "./AddressBookListItem";
 
 const AddressBookList = () => {
-  const { data, loading, error } = useQuery(CUSTOMER);
+  const { data, loading, error } = useQuery(CUSTOMER, {
+    fetchPolicy: "network-only",
+  });
   const [addressList, setAddressList] = useState([]);
 
   useEffect(() => {

@@ -41,7 +41,7 @@ const AddAddress = () => {
           city: addressFormValue.city,
           firstname: addressFormValue.firstname,
           lastname: addressFormValue.lastname,
-          default_shipping: true,
+          default_shipping: false,
           default_billing: false,
         },
       },
