@@ -1,10 +1,7 @@
-.right-inner-addon i {
-    position: absolute;
-    right: 0px;
-    padding: 10px 12px;
-    pointer-events: none;
-}
+.search-box{
+    background-color: #E5E5E5 !important; }
 
-input[type="search"]{
-    
-}
+input::placeholder {
+    padding-left: 20px;
+  }
+
