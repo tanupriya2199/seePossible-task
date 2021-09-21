@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const ADD_NEW_ADDRESS = gql`
-  mutation {
-    createCustomerAddress(input: CustomerAddressInput) {
+  mutation createCustomerAddress($input: CustomerAddressInput!) {
+    createCustomerAddress(input: $input) {
       id
       region {
         region

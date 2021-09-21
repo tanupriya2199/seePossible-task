@@ -8,6 +8,7 @@ export const CUSTOMER = gql`
       suffix
       email
       addresses {
+        id
         firstname
         lastname
         street

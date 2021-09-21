@@ -7,6 +7,7 @@ const AddAddress = () => {
   const [addressFormValue, setaddressFormValue] = useState({
     firstname: "",
     lastname: "",
+    address: [],
     address1: "",
     address2: "",
     city: "",
@@ -27,20 +28,19 @@ const AddAddress = () => {
   };
 
   const onClickSaveAddress = () => {
-    console.log("values", addressFormValue);
     createCustomerAddress({
       variables: {
         input: {
           region: {
-            region_id: 7,
+            region_id: 7, // adding region statically because we don't have input field for this and its a required parameter
           },
-          country_code: "US",
           street: ["123 Main Street"],
-          telephone: "9892738263",
-          postcode: "77777",
-          city: "Phoenix",
-          firstname: "Bob",
-          lastname: "Loblaw",
+          postcode: "77777", // required field but have no forn control to add postal code
+          country_code: "US", // required field
+          telephone: addressFormValue.telephone,
+          city: addressFormValue.city,
+          firstname: addressFormValue.firstname,
+          lastname: addressFormValue.lastname,
           default_shipping: true,
           default_billing: false,
         },
@@ -121,7 +121,7 @@ const AddAddress = () => {
                     <Form.Label>State</Form.Label>
                     <Form.Control
                       type="text"
-                      value={addressFormValue.city}
+                      value={addressFormValue.state}
                       onChange={(e) => onChangeValues(e)}
                     />
                   </Form.Group>

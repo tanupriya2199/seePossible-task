@@ -60,9 +60,9 @@ const AddressBookList = () => {
         </Row>
         <Row>
           {addressList.length > 0 &&
-            addressList.map((address, index) => {
+            addressList.map((address) => {
               return (
-                <Col sm={12} md={3} key={index}>
+                <Col sm={12} md={3} key={address.id}>
                   <AddressBookListItem address={address} />
                 </Col>
               );
