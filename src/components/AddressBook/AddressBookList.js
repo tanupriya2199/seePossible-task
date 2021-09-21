@@ -15,8 +15,11 @@ const AddressBookList = () => {
   const [addressList, setAddressList] = useState([]);
 
   useEffect(() => {
-    console.log(data);
     if (data?.customer.addresses.length > 0) {
+      localStorage.setItem(
+        "name",
+        `${data.customer.firstname} ${data.customer.lastname}`
+      );
       setAddressList(data.customer.addresses);
     }
   }, [data]);
@@ -58,7 +61,6 @@ const AddressBookList = () => {
         <Row>
           {addressList.length > 0 &&
             addressList.map((address, index) => {
-              console.log("adree", address);
               return (
                 <Col sm={12} md={3} key={index}>
                   <AddressBookListItem address={address} />

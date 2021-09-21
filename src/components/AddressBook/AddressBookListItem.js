@@ -7,7 +7,6 @@ import "../../styles/styles.css";
 import "../../styles/styles.css";
 
 const AddressBookListItem = (props) => {
-  console.log("props", props);
   const address = props.address;
   return (
     <div className="item-container background-grey p-3 d-flex justify-content-between mb-3">

@@ -10,7 +10,7 @@ import Header from "./components/Shared/Header";
 function App() {
   return (
     <div>
-      <Header />
+      <Route render={() => <Header />} />
       <Switch>
         <Route exact path="/sign-up" component={SignUp}></Route>
         <Route exact path="/sign-in" component={SignIn}></Route>
