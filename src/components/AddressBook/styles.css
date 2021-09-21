@@ -1,0 +1,10 @@
+.right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+
+input[type="search"]{
+    
+}

@@ -21,3 +21,7 @@
 .background-grey-200{
     background-color: #b8bbbd;
 }
+
+.cursor-pointer{
+    cursor: pointer;
+}

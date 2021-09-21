@@ -13,6 +13,7 @@ const Header = () => {
             <span className="p-3">Reconnect</span>
           </p>
         </div>
+        {}
         <div className="action-buttons ">
           <Link className="px-2" to="/sign-in">
             <span>Sign in</span>

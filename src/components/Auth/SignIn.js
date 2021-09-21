@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Col, Container, Form, Row, Button } from "react-bootstrap";
 import "./styles.css";
 import "../../styles/styles.css";
@@ -6,6 +7,8 @@ import { useMutation } from "@apollo/client";
 import { GENERATE_CUSTOM_TOKEN } from "../../gql-operations/mutations/generateCustomerToken";
 
 const SignIn = () => {
+  const history = useHistory();
+
   const [signInState, setSignInState] = useState({
     email: "",
     password: "",
@@ -19,13 +22,16 @@ const SignIn = () => {
   };
 
   const onClickSignIn = (e) => {
-    console.log("called", signInState);
     e.preventDefault();
     generateCustomerToken({
       variables: signInState,
     })
       .then((res) => {
-        console.log("res==", res);
+        const token = res?.data.generateCustomerToken.token;
+        if (token) {
+          localStorage.setItem("token", token);
+        }
+        history.push("address-list");
       })
       .catch((err) => {
         console.log("err==", err);
