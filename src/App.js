@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import AddAddress from "./components/AddressBook/AddAddress";
 import AddressBookList from "./components/AddressBook/AddressBookList";
@@ -9,9 +10,23 @@ import Footer from "./components/Shared/Footer";
 import Header from "./components/Shared/Header";
 
 function App() {
+  const [networkStatus, setStatus] = useState(true);
+
+  useEffect(() => {
+    function changeStatus() {
+      setStatus(navigator.onLine);
+    }
+    window.addEventListener("online", changeStatus);
+    window.addEventListener("offline", changeStatus);
+    return () => {
+      window.removeEventListener("online", changeStatus);
+      window.removeEventListener("offline", changeStatus);
+    };
+  }, []);
+
   return (
     <div>
-      <Route render={() => <Header />} />
+      <Route render={() => <Header networkStatus={networkStatus} />} />
       <Switch>
         <Route exact path="/sign-up" component={SignUp}></Route>
         <Route exact path="/sign-in" component={SignIn}></Route>

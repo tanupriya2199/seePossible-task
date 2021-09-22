@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { LOGOUT_USER } from "../../gql-operations/mutations/logoutUser";
 import "../../styles/styles.css";
 
-const Header = () => {
+const Header = (props) => {
   const history = useHistory();
   const [revokeCustomerToken] = useMutation(LOGOUT_USER);
 
@@ -26,12 +26,18 @@ const Header = () => {
     <div className="header-container d-flex">
       <Container className="d-flex justify-content-between align-items-center">
         <div className="logo-coniatiner">Company logo</div>
-        <div className="connection-status-container d-flex align-items-baseline">
-          <p className="py-3 pl-2">
-            Connection lost. Reconnecting in 5 seconds...{" "}
-            <span className="p-3">Reconnect</span>
-          </p>
-        </div>
+        <div>{props.networkStatus}</div>
+        {props.networkStatus ? (
+          ""
+        ) : (
+          <div className="connection-status-container d-flex align-items-baseline">
+            <p className="py-3 pl-2">
+              Connection lost. Reconnecting in 5 seconds...{" "}
+              <span className="p-3">Reconnect</span>
+            </p>
+          </div>
+        )}
+
         <div className="action-buttons ">
           {localStorage.getItem("token") ? (
             <>
