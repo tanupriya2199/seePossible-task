@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { ADD_NEW_ADDRESS } from "../../gql-operations/mutations/addNewAddress";
 
@@ -15,8 +15,16 @@ const AddAddress = () => {
     country: "",
     telephone: "",
   });
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [createCustomerAddress] = useMutation(ADD_NEW_ADDRESS);
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmitting) {
+      onClickSaveAddress();
+    }
+  }, [formErrors]);
 
   const onChangeValues = (e) => {
     setaddressFormValue((prev) => {
@@ -25,6 +33,32 @@ const AddAddress = () => {
         [e.target.id]: e.target.value,
       };
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormErrors(validate(addressFormValue));
+    setIsSubmitting(true);
+  };
+
+  const validate = (values) => {
+    let errors = {};
+    if (!values.firstname) {
+      errors.firstname = "Its a required field";
+    }
+    if (!values.lastname) {
+      errors.lastname = "Its a required field";
+    }
+    if (!values.city) {
+      errors.city = "Its a required field";
+    }
+    if (!values.state) {
+      errors.state = "Its a required field";
+    }
+    if (!values.telephone) {
+      errors.telephone = "Its a required field";
+    }
+    return errors;
   };
 
   const onClickSaveAddress = () => {
@@ -59,7 +93,7 @@ const AddAddress = () => {
       <Container fluid>
         <Row>
           <Col>
-            <h3 className="text-center pt-4">Add/Edit Address</h3>
+            <h3 className="text-center pt-4">Add Address</h3>
           </Col>
         </Row>
         <Row className="d-flex justify-content-center align-items-center login-container">
@@ -75,6 +109,11 @@ const AddAddress = () => {
                       value={addressFormValue.firstname}
                       onChange={(e) => onChangeValues(e)}
                     />
+                    {formErrors.firstname && (
+                      <Form.Text className="error">
+                        {formErrors.firstname}
+                      </Form.Text>
+                    )}
                   </Form.Group>
                 </Col>
                 <Col xs={12} md={6}>
@@ -85,6 +124,11 @@ const AddAddress = () => {
                       value={addressFormValue.lastname}
                       onChange={(e) => onChangeValues(e)}
                     />
+                    {formErrors.lastname && (
+                      <Form.Text className="error">
+                        {formErrors.lastname}
+                      </Form.Text>
+                    )}
                   </Form.Group>
                 </Col>
                 <Col xs={12}>
@@ -114,6 +158,9 @@ const AddAddress = () => {
                       value={addressFormValue.city}
                       onChange={(e) => onChangeValues(e)}
                     />
+                    {formErrors.city && (
+                      <Form.Text className="error">{formErrors.city}</Form.Text>
+                    )}
                   </Form.Group>
                 </Col>
                 <Col xs={12} md={6}>
@@ -124,6 +171,11 @@ const AddAddress = () => {
                       value={addressFormValue.state}
                       onChange={(e) => onChangeValues(e)}
                     />
+                    {formErrors.state && (
+                      <Form.Text className="error">
+                        {formErrors.state}
+                      </Form.Text>
+                    )}
                   </Form.Group>
                 </Col>
                 <Col>
@@ -144,11 +196,16 @@ const AddAddress = () => {
                       value={addressFormValue.telephone}
                       onChange={(e) => onChangeValues(e)}
                     />
+                    {formErrors.telephone && (
+                      <Form.Text className="error">
+                        {formErrors.telephone}
+                      </Form.Text>
+                    )}
                   </Form.Group>
                 </Col>
               </Row>
               <Button
-                onClick={(e) => onClickSaveAddress(e)}
+                onClick={(e) => handleSubmit(e)}
                 className="w-100 p-2 button mt-3"
                 color="secondary"
               >

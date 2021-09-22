@@ -53,7 +53,7 @@ const AddressBookListItem = (props) => {
             onClick={() => {
               onClickEdit();
             }}
-            className="cursor-pointer"
+            className="cursor-pointer icon-style"
             icon={faPencilAlt}
           />
         </Link>
@@ -61,7 +61,7 @@ const AddressBookListItem = (props) => {
           onClick={() => {
             onClickDelete();
           }}
-          className="cursor-pointer"
+          className="cursor-pointer icon-style"
           icon={faTrashAlt}
         />
       </div>

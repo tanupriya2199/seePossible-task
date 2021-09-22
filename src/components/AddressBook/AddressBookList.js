@@ -60,7 +60,7 @@ const AddressBookList = () => {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mt-5">
           {addressList.length > 0 &&
             addressList.map((address) => {
               return (

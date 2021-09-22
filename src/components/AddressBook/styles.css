@@ -12,3 +12,7 @@ input::placeholder {
   .form-control {
       margin-bottom: 0;
   }
+
+  .icon-style{
+      color: black;
+  }
