@@ -40,10 +40,10 @@ const AddressBookListItem = (props) => {
         <p>
           {address.firstname} {address.lastname}
         </p>
-        <p>
+        <div>
           {address.street.length > 0 &&
-            address.street.map((data) => <p>{data}</p>)}
-        </p>
+            address.street.map((data) => <p key={data}>{data}</p>)}
+        </div>
         <p>{address.city}</p>
         <p>{address.region.region}</p>
         <p>{address.country_code}</p>

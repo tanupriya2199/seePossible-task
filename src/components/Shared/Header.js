@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import React from "react";
 import { useHistory } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
@@ -8,7 +8,13 @@ import "../../styles/styles.css";
 
 const Header = (props) => {
   const history = useHistory();
+  const [loggedInUser, setLoggedInUser] = useState("");
   const [revokeCustomerToken] = useMutation(LOGOUT_USER);
+
+  useEffect(() => {
+    const userName = localStorage.getItem("name");
+    setLoggedInUser(userName);
+  }, [loggedInUser]);
 
   const onClickLogout = () => {
     revokeCustomerToken()
@@ -41,7 +47,10 @@ const Header = (props) => {
         <div className="action-buttons ">
           {localStorage.getItem("token") ? (
             <>
-              <span>Welcome, {localStorage.getItem("name")}</span>
+              <span>
+                Welcome,{" "}
+                {loggedInUser ? loggedInUser : localStorage.getItem("name")}
+              </span>
 
               <span
                 className="px-3 cursor-pointer"
