@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { generatePath } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { v4 as uuidv4 } from "uuid";
 import "../../styles/styles.css";
 import { DELETE_ADDRESS } from "../../gql-operations/mutations/deleteAddress";
 
 const AddressBookListItem = (props) => {
   const address = props.address;
+  const [showModal, setshowModal] = useState(false);
   const [deleteCustomerAddress] = useMutation(DELETE_ADDRESS);
 
-  const onClickEdit = () => {};
+  const toggleModal = () => {
+    setshowModal(!showModal);
+  };
 
   const onClickDelete = () => {
     deleteCustomerAddress({
@@ -23,9 +25,11 @@ const AddressBookListItem = (props) => {
     })
       .then((res) => {
         console.log("succefully deleted");
+        toggleModal();
       })
       .catch((err) => {
         console.log("error while deleting address", err);
+        toggleModal();
       });
   };
 
@@ -50,21 +54,37 @@ const AddressBookListItem = (props) => {
           }}
         >
           <FontAwesomeIcon
-            onClick={() => {
-              onClickEdit();
-            }}
             className="cursor-pointer icon-style"
             icon={faPencilAlt}
           />
         </Link>
         <FontAwesomeIcon
           onClick={() => {
-            onClickDelete();
+            toggleModal();
           }}
           className="cursor-pointer icon-style"
           icon={faTrashAlt}
         />
       </div>
+      <Modal show={showModal} onHide={() => toggleModal()}>
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Delete this address
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="d-flex justify-content-end">
+          <Button variant="primary" onClick={() => toggleModal()}>
+            Cancel
+          </Button>
+          <Button
+            className="ml-2"
+            variant="danger"
+            onClick={() => onClickDelete()}
+          >
+            Delete
+          </Button>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
