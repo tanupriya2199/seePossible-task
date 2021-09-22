@@ -14,6 +14,18 @@
     border: none;
 }
 
+.button:active{
+    background-color: black;
+    outline: none;
+    border: none;
+}
+
+.button:focus{
+    background-color: black;
+    outline: none;
+    border: none;
+}
+
 .background-grey{
     background-color: #E5E5E5;
 }
