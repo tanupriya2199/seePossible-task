@@ -30,15 +30,13 @@ const EditAddress = (props) => {
 
   useEffect(() => {
     const data = props.location.address;
-    console.log("data==", data);
     setaddressFormValue({
       firstname: data.firstname,
       lastname: data.lastname,
-      address: [],
-      address1: "",
-      address2: "",
+      address1: data.street[0],
+      address2: data.street[1],
       city: data.city,
-      state: data.state,
+      state: data.state, // this will not populate value because address doesn't have state value
       country: data.country_code,
       telephone: data.telephone,
     });
