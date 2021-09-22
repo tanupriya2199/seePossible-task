@@ -1,13 +1,14 @@
-import { useMutation } from "@apollo/client";
 import React, { useState, useEffect } from "react";
+import { useMutation } from "@apollo/client";
+import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { ADD_NEW_ADDRESS } from "../../gql-operations/mutations/addNewAddress";
 
 const AddAddress = () => {
+  const history = useHistory();
   const [addressFormValue, setaddressFormValue] = useState({
     firstname: "",
     lastname: "",
-    address: [],
     address1: "",
     address2: "",
     city: "",
@@ -68,7 +69,7 @@ const AddAddress = () => {
           region: {
             region_id: 7, // adding region statically because we don't have input field for this and its a required parameter
           },
-          street: ["123 Main Street"],
+          street: [addressFormValue.address1, addressFormValue.address2],
           postcode: "77777", // required field but have no forn control to add postal code
           country_code: "US", // required field
           telephone: addressFormValue.telephone,
@@ -82,6 +83,7 @@ const AddAddress = () => {
     })
       .then((res) => {
         console.log("res----", res);
+        history.push("/address-list");
       })
       .catch((err) => {
         console.log("err", err);
@@ -96,10 +98,9 @@ const AddAddress = () => {
             <h3 className="text-center pt-4">Add Address</h3>
           </Col>
         </Row>
-        <Row className="d-flex justify-content-center align-items-center login-container">
+        <Row className="d-flex justify-content-center align-items-center login-container mt-5">
           <Col xs={12} sm={5} className="p-4 background-grey">
             <Form>
-              <h5>Address Id : #87327683</h5>
               <Row>
                 <Col xs={12} md={6}>
                   <Form.Group controlId="firstname">
